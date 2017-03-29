@@ -11,8 +11,8 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillStyle = 'black';
   ctx.font = '16px PT Mono';
 
-  ctx.fillText('Ура вы победили!', 170, 40);
-  ctx.fillText('Список результатов:', 170, 60);
+  ctx.fillText('Ура вы победили!', 160, 40);
+  ctx.fillText('Список результатов:', 160, 60);
 
   function findMaxTime(timesArray) {
     var max = -1;
@@ -56,6 +56,6 @@ window.renderStatistics = function (ctx, names, times) {
     }
   }
 
-  drawHistagram(times, names, 80, 40, 170, 230);
+  drawHistagram(times, names, 90, 40, 160, 230);
 };
 
