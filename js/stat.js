@@ -14,34 +14,48 @@ window.renderStatistics = function (ctx, names, times) {
   ctx.fillText('Ура вы победили!', 170, 40);
   ctx.fillText('Список результатов:', 170, 60);
 
-  var max = -1;
-  // var maxIndex = -1;
+  function findMaxTime(timesArray) {
+    var max = -1;
 
-  for (var i = 0; i < times.length; i++) {
-    var time = times[i];
-    if (time > max) {
-      max = time;
+    for (var i = 0; i < timesArray.length; i++) {
+      var time = timesArray[i];
+      if (time > max) {
+        max = time;
+      }
     }
+
+    return max;
+  }
+
+  function getRandomBlueTone() {
+    return 'rgba(0, 0, 255, ' + Math.random().toFixed(2) + ')';
+  }
+
+  function paintHistogramBar(x, y, width, height) {
+    ctx.fillRect(x, y, width, -height);
+  }
+
+  function paintHistogramText(name, x, y, color) {
+    ctx.fillStyle = color;
+    ctx.fillText(name, x, y);
   }
 
   var histogramHeight = 150;
-  var step = histogramHeight / max;
+  var step = histogramHeight / findMaxTime(times);
 
-  var barWidth = 40;
-  var indent = 80;
-  var initialX = 170;
-  var initialY = 230;
-  var initialTextX = initialX;
-  var initialTextY = initialY + 20;
+  function drawHistagram(timesArray, namesArray, indent, barWidth, initialX, initialY) {
+    for (var i = 0; i < timesArray.length; i++) {
+      if (namesArray[i] === 'Вы') {
+        ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+      } else {
+        ctx.fillStyle = getRandomBlueTone();
+      }
 
-  var colors = ['red', 'green', 'orange', 'blue'];
-
-  for (i = 0; i < times.length; i++) {
-    ctx.fillStyle = colors[i];
-    ctx.fillRect(initialX + indent * i, initialY, barWidth, -times[i] * step);
-
-    ctx.fillStyle = 'black';
-    ctx.fillText(names[i], initialTextX + indent * i, initialTextY);
+      paintHistogramBar(initialX + indent * i, initialY, barWidth, timesArray[i] * step);
+      paintHistogramText(namesArray[i], initialX + indent * i, initialY + 20, 'black');
+    }
   }
+
+  drawHistagram(times, names, 80, 40, 170, 230);
 };
 
