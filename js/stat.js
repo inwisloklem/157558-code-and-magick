@@ -40,10 +40,7 @@ window.renderStatistics = function (ctx, names, times) {
     ctx.fillText(name, x, y);
   }
 
-  var histogramHeight = 150;
-  var step = histogramHeight / findMaxTime(times);
-
-  function drawHistagram(timesArray, namesArray, indent, barWidth, initialX, initialY) {
+  function drawHistagram(timesArray, namesArray, indent, barWidth, histogramHeight, initialX, initialY) {
     for (var i = 0; i < timesArray.length; i++) {
       if (namesArray[i] === 'Вы') {
         ctx.fillStyle = 'rgba(255, 0, 0, 1)';
@@ -51,11 +48,13 @@ window.renderStatistics = function (ctx, names, times) {
         ctx.fillStyle = getRandomBlueTone();
       }
 
+      var step = histogramHeight / findMaxTime(times);
+
       paintHistogramBar(initialX + indent * i, initialY, barWidth, timesArray[i] * step);
       paintHistogramText(namesArray[i], initialX + indent * i, initialY + 20, 'black');
     }
   }
 
-  drawHistagram(times, names, 90, 40, 160, 230);
+  drawHistagram(times, names, 90, 40, 150, 160, 230);
 };
 
