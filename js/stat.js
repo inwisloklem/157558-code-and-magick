@@ -50,7 +50,6 @@ window.renderStatistics = function (ctx, names, times) {
         ctx.fillStyle = getRandomBlueTone();
       }
 
-
       paintHistogramBar(initialX + indent * i, initialY, barWidth, timesArray[i] * step);
       paintHistogramText(namesArray[i], initialX + indent * i, initialY + 20, 'black');
     }
