@@ -59,7 +59,7 @@ function generateName(firstNames, lastNames) {
 function generateWizards(details, num) {
   var wizards = [];
 
-  for (; num--;) {
+  for (var i = 0; i < num; i++) {
     wizards.push({
       'name': generateName(details.firstNames, details.lastNames),
       'coatColor': getRandomArrayElement(details.coatColors),
@@ -83,7 +83,7 @@ function renderWizard(wizard, template) {
 function makeFragment(wizards) {
   var fragment = document.createDocumentFragment();
 
-  for (var i = wizards.length; i--;) {
+  for (var i = 0, l = wizards.length; i < l; i++) {
     fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
   }
 
@@ -96,11 +96,9 @@ var setup = document.querySelector('.setup');
 var setupSimilar = setup.querySelector('.setup-similar');
 var setupSimilarList = setupSimilar.querySelector('.setup-similar-list');
 
-setupSimilarList.appendChild(
-    makeFragment(
-        generateWizards(wizardDetails, 4)
-    )
-);
+var fragmentWizards = makeFragment(generateWizards(wizardDetails, 4));
+
+setupSimilarList.appendChild(fragmentWizards);
 
 setup.classList.remove('hidden');
 setupSimilar.classList.remove('hidden');
