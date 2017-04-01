@@ -44,11 +44,9 @@ function getRandomArrayElement(array) {
 }
 
 function generateName(firstNames, lastNames) {
-  if (Math.random() > 0.5) {
-    return getRandomArrayElement(firstNames) + ' ' + getRandomArrayElement(lastNames);
-  } else {
-    return getRandomArrayElement(lastNames) + ' ' + getRandomArrayElement(firstNames);
-  }
+  var name = [getRandomArrayElement(firstNames), getRandomArrayElement(lastNames)];
+
+  return (Math.random > 0.5) ? name.join(' ') : name.reverse().join(' ');
 }
 
 function generateWizardsArray(firstNames, lastNames, coatColors, eyesColors, num) {
