@@ -52,7 +52,7 @@ function generateName(firstNames, lastNames) {
 function generateWizardsArray(firstNames, lastNames, coatColors, eyesColors, num) {
   var wizards = [];
 
-  for (var i = 0; i < num; i++) {
+  for (; num--;) {
     wizards.push({
       'name': generateName(firstNames, lastNames),
       'coatColor': getRandomArrayElement(coatColors),
@@ -76,7 +76,7 @@ function renderWizard(wizard, template) {
 function makeFragment(wizards) {
   var fragment = document.createDocumentFragment();
 
-  for (var i = 0; i < wizards.length; i++) {
+  for (var i = wizards.length; i--;) {
     fragment.appendChild(renderWizard(wizards[i], similarWizardTemplate));
   }
 
