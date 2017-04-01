@@ -39,6 +39,13 @@ var EYES_COLORS = [
   'green'
 ];
 
+var wizardDetails = {
+  'firstNames': FIRST_NAMES,
+  'lastNames': LAST_NAMES,
+  'coatColors': COAT_COLORS,
+  'eyesColors': EYES_COLORS
+};
+
 function getRandomArrayElement(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
@@ -49,14 +56,14 @@ function generateName(firstNames, lastNames) {
   return (Math.random > 0.5) ? name.join(' ') : name.reverse().join(' ');
 }
 
-function generateWizardsArray(firstNames, lastNames, coatColors, eyesColors, num) {
+function generateWizards(details, num) {
   var wizards = [];
 
   for (; num--;) {
     wizards.push({
-      'name': generateName(firstNames, lastNames),
-      'coatColor': getRandomArrayElement(coatColors),
-      'eyesColor': getRandomArrayElement(eyesColors)
+      'name': generateName(details.firstNames, details.lastNames),
+      'coatColor': getRandomArrayElement(details.coatColors),
+      'eyesColor': getRandomArrayElement(details.eyesColors)
     });
   }
 
@@ -91,7 +98,7 @@ var setupSimilarList = setupSimilar.querySelector('.setup-similar-list');
 
 setupSimilarList.appendChild(
     makeFragment(
-        generateWizardsArray(FIRST_NAMES, LAST_NAMES, COAT_COLORS, EYES_COLORS, 4)
+        generateWizards(wizardDetails, 4)
     )
 );
 
