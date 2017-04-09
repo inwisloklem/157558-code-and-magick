@@ -112,29 +112,34 @@ setupSimilar.classList.remove('hidden');
 
 // Открытие и закрытие окна настройки персонажа
 
+var ESC_KEY_CODE = 27;
+var ENTER_KEY_CODE = 13;
+
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
 
+var isKeyPressed = function (evt, code) {
+  return evt.keyCode === code;
+};
+
 var openSetup = function () {
   setup.classList.remove('hidden');
+  document.addEventListener('keydown', onSetupEscPress);
 };
 
 var closeSetup = function () {
   setup.classList.add('hidden');
-
   document.removeEventListener('keydown', onSetupEscPress);
 };
 
 var onSetupEscPress = function (evt) {
-  if (evt.keyCode === 27) {
+  if (isKeyPressed(evt, ESC_KEY_CODE)) {
     closeSetup();
   }
 };
 
 setupOpen.addEventListener('click', function () {
   openSetup();
-
-  document.addEventListener('keydown', onSetupEscPress);
 });
 
 setupClose.addEventListener('click', function () {
@@ -142,14 +147,24 @@ setupClose.addEventListener('click', function () {
 });
 
 setupOpen.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
+  if (isKeyPressed(evt, ENTER_KEY_CODE)) {
     openSetup();
   }
 });
 
 setupClose.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === 13) {
+  if (isKeyPressed(evt, ENTER_KEY_CODE)) {
     closeSetup();
+  }
+});
+
+// Отключение срабатывания ESC в поле ввода имени персонажа
+
+var setupUserName = setup.querySelector('.setup-user-name');
+
+setupUserName.addEventListener('keydown', function (evt) {
+  if (isKeyPressed(evt, ESC_KEY_CODE)) {
+    evt.stopPropagation();
   }
 });
 
@@ -158,6 +173,7 @@ setupClose.addEventListener('keydown', function (evt) {
 var wizard = setup.querySelector('.wizard');
 var wizardCoat = wizard.querySelector('.wizard-coat');
 var wizardEyes = wizard.querySelector('.wizard-eyes');
+var wizardFireball = setup.querySelector('.setup-fireball');
 
 wizardCoat.addEventListener('click', function () {
   wizardCoat.style.fill = getRandomArrayElement(COAT_COLORS);
@@ -166,8 +182,6 @@ wizardCoat.addEventListener('click', function () {
 wizardEyes.addEventListener('click', function () {
   wizardEyes.style.fill = getRandomArrayElement(EYES_COLORS);
 });
-
-var wizardFireball = setup.querySelector('.setup-fireball');
 
 wizardFireball.addEventListener('click', function () {
   wizardFireball.style.backgroundColor = getRandomArrayElement(FIREBALL_COLORS);
