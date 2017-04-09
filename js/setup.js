@@ -122,9 +122,16 @@ var isKeyPressed = function (evt, code) {
   return evt.keyCode === code;
 };
 
+var onBodyClick = function (evt) {
+  if (!setup.contains(evt.target)) {
+    closeSetup();
+  }
+};
+
 var openSetup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onSetupEscPress);
+  document.addEventListener('mouseup', onBodyClick);
 };
 
 var closeSetup = function () {
