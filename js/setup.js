@@ -107,11 +107,40 @@ setupSimilar.classList.remove('hidden');
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
 
-setupOpen.addEventListener('click', function () {
+var openSetup = function () {
   setup.classList.remove('hidden');
+};
 
-  setupClose.addEventListener('click', function () {
-    setup.classList.add('hidden');
-  });
+var closeSetup = function () {
+  setup.classList.add('hidden');
+
+  document.removeEventListener('keydown', onSetupEscPress);
+};
+
+var onSetupEscPress = function (evt) {
+  if (evt.keyCode === 27) {
+    closeSetup();
+  }
+};
+
+setupOpen.addEventListener('click', function () {
+  openSetup();
+
+  document.addEventListener('keydown', onSetupEscPress);
 });
 
+setupClose.addEventListener('click', function () {
+  closeSetup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    openSetup();
+  }
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === 13) {
+    closeSetup();
+  }
+});
