@@ -152,3 +152,23 @@ setupClose.addEventListener('keydown', function (evt) {
     closeSetup();
   }
 });
+
+// Изменение персонажа
+
+var wizard = setup.querySelector('.wizard');
+var wizardCoat = wizard.querySelector('.wizard-coat');
+var wizardEyes = wizard.querySelector('.wizard-eyes');
+
+wizardCoat.addEventListener('click', function () {
+  wizardCoat.style.fill = getRandomArrayElement(COAT_COLORS);
+});
+
+wizardEyes.addEventListener('click', function () {
+  wizardEyes.style.fill = getRandomArrayElement(EYES_COLORS);
+});
+
+var wizardFireball = setup.querySelector('.setup-fireball');
+
+wizardFireball.addEventListener('click', function () {
+  wizardFireball.style.backgroundColor = getRandomArrayElement(FIREBALL_COLORS);
+});
