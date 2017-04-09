@@ -100,5 +100,18 @@ var fragmentWizards = makeFragment(generateWizards(wizardDetails, 4));
 
 setupSimilarList.appendChild(fragmentWizards);
 
-setup.classList.remove('hidden');
 setupSimilar.classList.remove('hidden');
+
+// Открытие и закрытие окна настройки персонажа
+
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+
+setupOpen.addEventListener('click', function () {
+  setup.classList.remove('hidden');
+
+  setupClose.addEventListener('click', function () {
+    setup.classList.add('hidden');
+  });
+});
+
