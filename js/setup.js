@@ -117,6 +117,7 @@ var ENTER_KEY_CODE = 13;
 
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
+var setupSubmit = setup.querySelector('.setup-submit');
 
 var isKeyPressed = function (evt, code) {
   return evt.keyCode === code;
@@ -137,6 +138,7 @@ var openSetup = function () {
 var closeSetup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onSetupEscPress);
+  document.removeEventListener('mouseup', onBodyClick);
 };
 
 var onSetupEscPress = function (evt) {
@@ -161,6 +163,13 @@ setupOpen.addEventListener('keydown', function (evt) {
 
 setupClose.addEventListener('keydown', function (evt) {
   if (isKeyPressed(evt, ENTER_KEY_CODE)) {
+    closeSetup();
+  }
+});
+
+setupSubmit.addEventListener('keydown', function (evt) {
+  if (isKeyPressed(evt, ENTER_KEY_CODE)) {
+    evt.preventDefault();
     closeSetup();
   }
 });
