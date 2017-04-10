@@ -118,6 +118,7 @@ var ENTER_KEY_CODE = 13;
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
 var setupSubmit = setup.querySelector('.setup-submit');
+// var setupForm = setup.querySelector('.setup-wizard-form');
 
 var isKeyPressed = function (evt, code) {
   return evt.keyCode === code;
@@ -167,10 +168,22 @@ setupClose.addEventListener('keydown', function (evt) {
   }
 });
 
-setupSubmit.addEventListener('keydown', function (evt) {
-  if (isKeyPressed(evt, ENTER_KEY_CODE)) {
+// Валидация и закрытие формы по нажатию кнопки "Сохранить"
+
+var validateSetupUsername = function (evt) {
+  if (setupUserName.value.trim() > 1) {
     evt.preventDefault();
     closeSetup();
+  }
+};
+
+setupSubmit.addEventListener('click', function (evt) {
+  validateSetupUsername(evt);
+});
+
+setupSubmit.addEventListener('keydown', function (evt) {
+  if (isKeyPressed(evt, ENTER_KEY_CODE)) {
+    validateSetupUsername(evt);
   }
 });
 
