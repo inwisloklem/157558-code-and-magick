@@ -117,8 +117,8 @@ var ENTER_KEY_CODE = 13;
 
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = setup.querySelector('.setup-close');
-var setupSubmit = setup.querySelector('.setup-submit');
-// var setupForm = setup.querySelector('.setup-wizard-form');
+
+var setupForm = setup.querySelector('.setup-wizard-form');
 
 var isKeyPressed = function (evt, code) {
   return evt.keyCode === code;
@@ -130,16 +130,23 @@ var onBodyClick = function (evt) {
   }
 };
 
+var onFormSubmit = function (evt) {
+  evt.preventDefault();
+  closeSetup();
+};
+
 var openSetup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onSetupEscPress);
   document.addEventListener('mouseup', onBodyClick);
+  setupForm.addEventListener('submit', onFormSubmit);
 };
 
 var closeSetup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onSetupEscPress);
   document.removeEventListener('mouseup', onBodyClick);
+  setupForm.removeEventListener('submit', onFormSubmit);
 };
 
 var onSetupEscPress = function (evt) {
@@ -165,25 +172,6 @@ setupOpen.addEventListener('keydown', function (evt) {
 setupClose.addEventListener('keydown', function (evt) {
   if (isKeyPressed(evt, ENTER_KEY_CODE)) {
     closeSetup();
-  }
-});
-
-// Валидация и закрытие формы по нажатию кнопки "Сохранить"
-
-var validateSetupUsername = function (evt) {
-  if (setupUserName.value.trim() > 1) {
-    evt.preventDefault();
-    closeSetup();
-  }
-};
-
-setupSubmit.addEventListener('click', function (evt) {
-  validateSetupUsername(evt);
-});
-
-setupSubmit.addEventListener('keydown', function (evt) {
-  if (isKeyPressed(evt, ENTER_KEY_CODE)) {
-    validateSetupUsername(evt);
   }
 });
 
